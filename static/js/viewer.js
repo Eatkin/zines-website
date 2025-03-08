@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", function () {
     // Avoid preloading if we're at the end of the pages
     if (index >= zinePages.length) return;
 
+    // If the image is already preloaded, skip
+    if (preloadedImages[index]) return;
+
     const img = new Image();
     img.src = `/api/image/${zinePages[index]}`;
     preloadedImages[index] = img;
@@ -43,14 +46,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Preload the next image (for smooth navigation)
       preloadNextImage(index + 1);
+      // Preload prev image cause we have url params now
+      preloadNextImage(index - 1);
+
+      // Set url parameters to the current page
+      window.history.replaceState({}, "", `?page=${index + 1}`);
     }
   }
 
   // Initial page load
-  updatePage(0);
-
-  // Preload the next image for smooth navigation (after the current page)
-  preloadNextImage(1);
+  // Get URL parameters (if there are any)
+  const urlParams = new URLSearchParams(window.location.search);
+  const pageParam = urlParams.get("page");
+  if (pageParam) {
+    const pageIndex = parseInt(pageParam) - 1;
+    if (pageIndex >= 0 && pageIndex < zinePages.length) {
+      currentIndex = pageIndex;
+    }
+  }
+  updatePage(currentIndex);
 
   // Navigation buttons
   prevBtn.addEventListener("click", () => updatePage(currentIndex - 1));

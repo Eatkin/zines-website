@@ -1,3 +1,4 @@
+import os
 from firebase_admin import firestore, initialize_app
 from google.cloud import storage
 from flask import jsonify
@@ -57,5 +58,6 @@ def image(image_path):
     if not blob.exists():
         return jsonify({'error': 'Image not found'}), 404
     # Infer content type from the file extension
-    content_type = 'image/jpeg' if image_path.endswith('.jpg') else 'image/png'
+    ext = os.path.splitext
+    content_type = {'jpg': 'image/jpeg', 'png': 'image/png', 'webp': 'image/webp'}.get(ext, 'image/jpeg')
     return blob.download_as_string(), 200, {'Content-Type': content_type}
