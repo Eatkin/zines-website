@@ -5,10 +5,10 @@
   <ul>
     {% for zine in zines %}
     <li class="zine-item">
-      <a href="{{ url_for('viewer', zine_id=zine.title) }}">
+      <a href="{{ url_for('viewer', zine_id=zine.id) }}">
         <img src="{{ url_for('image', image_path=zine.thumbnail) }}" alt="{{ zine.id }} thumbnail">
         <span>
-          {{ zine.id }}</span>
+          {{ zine.title }}</span>
       </a>
     </li>
     {% endfor %}
