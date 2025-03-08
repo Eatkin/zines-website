@@ -1,0 +1,11 @@
+runtime: python310
+entrypoint: gunicorn -b :$PORT app:app
+service_account: zine-service@zines-website.iam.gserviceaccount.com
+
+handlers:
+  - url: /static
+    static_dir: static
+
+  - url: /.*
+    script: auto
+

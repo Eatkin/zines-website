@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>💃 My Zines</h1>
+<div id="zines">
+  <ul>
+    {% for zine in zines %}
+    <li class="zine-item">
+      <a href="{{ url_for('viewer', zine_id=zine.title) }}">
+        <img src="{{ url_for('image', image_path=zine.thumbnail) }}" alt="{{ zine.id }} thumbnail">
+        <span>
+          {{ zine.id }}</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}

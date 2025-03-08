@@ -1,0 +1,6 @@
+__pycache__*
+.envrc
+.python_version
+.gitignore
+.git*
+zines-website-282da7ef211d.json

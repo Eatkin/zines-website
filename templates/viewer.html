@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{{ url_for('index') }}" class="back-button">🏠 Take Me Home!</a>
+<h1>
+  {{ title }}
+</h1>
+<div id="viewer">
+  <img id="zinePage" src="{{ url_for('static', filename='images/GearsWhite.gif') }}" alt="Zine Page">
+  <button id="prev-button" class="nav-button">←</button>
+  <button id="next-button" class="nav-button">→</button>
+</div>
+<div class="zoom-container">
+  <p class="zoom-label">🔍 Zoom Level: <span id="zoomLabel">Normal-ish</span></p>
+  <input type="range" id="zoomSlider" min="0.1" max="5" step="0.1" value="1">
+  <div id="zoomDescription" class="zoom-description">Tiny -> Huge</div>
+</div>
+
+
+<script>
+  const zinePages = {{ pages|tojson }};
+  const zineId = "{{ id }}";
+</script>
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+<script src="{{ url_for('static', filename='js/viewer.js') }}"></script>
+{% endblock %}
