@@ -36,6 +36,7 @@ h1 {
 
 .zine-item {
   list-style-type: none;
+  display: inline-block;
   font-size: 1.2em;
   padding: 15px;
   background-color: #c9d1d3;
